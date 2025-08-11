@@ -42,18 +42,19 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Envie um link válido do TikTok.")
 
 def main():
-    import asyncio
     from telegram.ext import Application
 
-    app = ApplicationBuilder().token(TOKEN).webhook(url=WEBHOOK_URL).build()
+    app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
 
     print("Bot iniciado!")
-    app.run_webhook(listen="0.0.0.0",
-                    port=8443,
-                    webhook_url=WEBHOOK_URL)
+    app.run_webhook(
+        listen="0.0.0.0",
+        port=8443,
+        webhook_url=WEBHOOK_URL
+    )
 
 if __name__ == "__main__":
     main()
