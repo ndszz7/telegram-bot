@@ -3,8 +3,11 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 import yt_dlp
 
-WEBHOOK_URL = os.getenv("WEBHOOK_URL", "https://seu-bot.onrender.com")
-TOKEN = os.getenv("TOKEN", "SEU_TOKEN_AQUI")
+# Coloque seu webhook público aqui (URL do Render)
+WEBHOOK_URL = os.getenv("WEBHOOK_URL", "https://telegram-bot-3ao7.onrender.com")
+
+# Coloque seu token do Telegram aqui (deixe a variável de ambiente preferencial)
+TOKEN = os.getenv("TOKEN", "8407190444:AAHLmIa-cOrT1E29JbY-RZHkpicT45txmy0")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
@@ -31,8 +34,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             filepath = await download_tiktok(text)
             await update.message.reply_video(open(filepath, "rb"),
-                                            caption=f"Vídeo baixado para você, {update.effective_user.first_name}!
-@{context.bot.username}")
+                                            caption=f"Vídeo baixado para você, {update.effective_user.first_name}!\n@{context.bot.username}")
             os.remove(filepath)
         except Exception as e:
             await update.message.reply_text("Erro ao baixar o vídeo. Verifique o link ou os cookies.")
