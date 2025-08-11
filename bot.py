@@ -48,12 +48,9 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
 
-    # Para rodar no Render: webhook serve para receber as mensagens
-    # Normalmente, precisa configurar o webhook via Telegram Bot API após deploy
-    # Aqui só iniciamos o bot
     print("Bot iniciado!")
     app.run_webhook(listen="0.0.0.0",
-                    port=int(os.environ.get("PORT", 8443)),
+                    port=8443,
                     webhook_url=WEBHOOK_URL)
 
 if __name__ == "__main__":
